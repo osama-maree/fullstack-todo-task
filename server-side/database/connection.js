@@ -10,4 +10,6 @@ export const db = new sqlite3.Database("mydb.sqlite3", (err) => {
 });
 
 //For Create Table
-//db.run("CREATE TABLE tasks (id INT, content TEXT,completed BOOLEAN)");
+// db.run(
+//   "CREATE TABLE tasks (id INT PRIMARY KEY, content TEXT,completed BOOLEAN)"
+// );
