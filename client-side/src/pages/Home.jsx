@@ -85,14 +85,30 @@ const Home = () => {
     }
   };
   const toggleTask = (index) => {
-    setTasks(
-      tasks.map((t) =>
-        t.id === index ? { ...t, completed: !t.completed } : { ...t }
-      )
-    );
+    const todo = tasks.find((t) => t.id === index);
+    fetch(`${process.env.REACT_APP_API_URL}/${index}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed: !todo.completed }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        fetchTodo();
+        console.log("Response Data:", responseData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
   const deleteTask = (index) => {
-    setTasks(tasks.filter((t) => t.id !== index));
+    
   };
   return (
     <>
