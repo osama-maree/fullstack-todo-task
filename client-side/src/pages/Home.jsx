@@ -74,6 +74,7 @@ const Home = () => {
         .then((responseData) => {
           handleOpenSuccess();
           fetchTodo();
+          setTaskText("");
           console.log("Response Data:", responseData);
         })
         .catch((error) => {
