@@ -37,7 +37,14 @@ const Home = () => {
   };
   const addTask = () => {
     if (taskText.trim() !== "") {
-      setTasks([...tasks, { text: taskText, completed: false }]);
+      setTasks([
+        ...tasks,
+        {
+          id: tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 0,
+          text: taskText,
+          completed: false,
+        },
+      ]);
       setTaskText("");
       handleOpenSuccess();
     } else {
@@ -45,14 +52,14 @@ const Home = () => {
     }
   };
   const toggleTask = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].completed = !updatedTasks[index].completed;
-    setTasks(updatedTasks);
+    setTasks(
+      tasks.map((t) =>
+        t.id === index ? { ...t, completed: !t.completed } : { ...t }
+      )
+    );
   };
   const deleteTask = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks.splice(index, 1);
-    setTasks(updatedTasks);
+    setTasks(tasks.filter((t) => t.id !== index));
   };
   return (
     <>
@@ -93,7 +100,6 @@ const Home = () => {
                   task={task}
                   toggleTask={toggleTask}
                   deleteTask={deleteTask}
-                  index={index}
                 />
               ))
             : tasks.map((task, index) => (
@@ -102,7 +108,6 @@ const Home = () => {
                   task={task}
                   toggleTask={toggleTask}
                   deleteTask={deleteTask}
-                  index={index}
                 />
               ))}
         </List>

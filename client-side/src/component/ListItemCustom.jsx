@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-const ListItemCustom = ({ task, toggleTask, index, deleteTask }) => {
+const ListItemCustom = ({ task, toggleTask,  deleteTask }) => {
   return (
     <ListItem dense button sx={{ borderBottom: "1px solid #e5e5e5" }}>
       <Checkbox
@@ -15,13 +15,13 @@ const ListItemCustom = ({ task, toggleTask, index, deleteTask }) => {
         checked={task.completed}
         tabIndex={-1}
         disableRipple
-        onClick={() => toggleTask(index)}
+        onClick={() => toggleTask(task.id)}
       />
       <ListItemText
         sx={{
           textDecoration: task.completed ? "line-through" : "none",
         }}
-        onClick={() => toggleTask(index)}
+        onClick={() => toggleTask(task.id)}
       >
         {task.text}
       </ListItemText>
@@ -29,7 +29,7 @@ const ListItemCustom = ({ task, toggleTask, index, deleteTask }) => {
         <IconButton
           edge="end"
           aria-label="delete"
-          onClick={() => deleteTask(index)}
+          onClick={() => deleteTask(task.id)}
         >
           <span role="img" aria-label="delete" className="MuiIconButton-label">
             <DeleteIcon color="error" />
