@@ -5,7 +5,7 @@ export const AddTodoValidation = {
     .required()
     .keys({
       completed: Joi.boolean().required(),
-      content: Joi.string().min(5).required(),
+      content: Joi.string().min(2).required(),
       id: Joi.number().required(),
     }),
 };
