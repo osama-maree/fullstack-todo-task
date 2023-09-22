@@ -52,16 +52,33 @@ const Home = () => {
   };
   const addTask = () => {
     if (taskText.trim() !== "") {
-      setTasks([
-        ...tasks,
-        {
-          id: tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 0,
-          text: taskText,
-          completed: false,
+      const data = {
+        id: tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 0,
+        content: taskText,
+        completed: false,
+      };
+
+      fetch(process.env.REACT_APP_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      ]);
-      setTaskText("");
-      handleOpenSuccess();
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((responseData) => {
+          handleOpenSuccess();
+          fetchTodo();
+          console.log("Response Data:", responseData);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     } else {
       handleOpen();
     }
