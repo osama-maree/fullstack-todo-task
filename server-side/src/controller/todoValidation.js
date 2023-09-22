@@ -9,3 +9,21 @@ export const AddTodoValidation = {
       id: Joi.number().required(),
     }),
 };
+
+export const UpdateTaskValidation = {
+  body: Joi.object().required().keys({
+    completed: Joi.boolean().required(),
+  }),
+  params: Joi.object().required().keys({
+    id: Joi.number().required(),
+  }),
+};
+
+
+export const DeleteTaskValidation = {
+  params: Joi.object()
+    .required()
+    .keys({
+      id: Joi.number().required(),
+    }),
+};
