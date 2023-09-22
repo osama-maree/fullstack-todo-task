@@ -6,6 +6,7 @@ import Footer from "../component/Footer.jsx";
 import AlertCustom from "../component/AlertCustom.jsx";
 import ListItemCustom from "../component/ListItemCustom.jsx";
 import { List } from "@mui/material";
+import { toast } from "react-toastify";
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [open, setOpen] = useState(false);
@@ -39,7 +40,11 @@ const Home = () => {
   useEffect(() => {
     fetchTodo();
   }, []);
-
+  const showToast = (text) => {
+    toast.success(`${text}`, {
+      position: "bottom-right",
+    });
+  };
   const handleOpen = () => {
     setOpenSuccess(false);
     if (open) return;
@@ -101,6 +106,8 @@ const Home = () => {
       })
       .then((responseData) => {
         fetchTodo();
+        showToast("Successfully Toggle");
+
         console.log("Response Data:", responseData);
       })
       .catch((error) => {
@@ -108,7 +115,27 @@ const Home = () => {
       });
   };
   const deleteTask = (index) => {
-    
+    fetch(`${process.env.REACT_APP_API_URL}/${index}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        fetchTodo();
+        showToast("Successfully deleted");
+
+        console.log("Response Data:", responseData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
   return (
     <>
