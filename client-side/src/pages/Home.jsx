@@ -14,6 +14,17 @@ const Home = () => {
   const [search, setSearch] = useState();
   const [temp, setTemp] = useState([]);
   const [hide, setHide] = useState(true);
+  const fetchTodo = () => {
+    const baseURL = process.env.REACT_APP_API_URL;
+    fetch(`${baseURL}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setTasks(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     if (search) {
       setTemp(() =>
@@ -25,6 +36,10 @@ const Home = () => {
       setTemp(() => []);
     }
   }, [search]);
+  useEffect(() => {
+    fetchTodo();
+  }, []);
+
   const handleOpen = () => {
     setOpenSuccess(false);
     if (open) return;
