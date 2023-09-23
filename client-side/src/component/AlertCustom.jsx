@@ -11,9 +11,7 @@ const AlertCustom = ({ icon, Open, text }) => {
           aria-label="close"
           color="inherit"
           size="small"
-          onClick={() => {
-            Open();
-          }}
+          onClick={Open}
         >
           <CloseIcon fontSize="inherit" />
         </IconButton>

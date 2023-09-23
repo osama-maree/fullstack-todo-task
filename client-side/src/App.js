@@ -4,11 +4,7 @@ function App() {
   return (
     <Container
       maxWidth="sm"
-      sx={{
-        border: "1px solid #eee",
-        borderRadius: "15px",
-        paddingTop: "10px",
-      }}
+      className="app"
     >
       <Home />
     </Container>

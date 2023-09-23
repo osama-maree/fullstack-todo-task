@@ -3,6 +3,15 @@ import React from "react";
 import CustomButton from "./CustomButton.jsx";
 
 const Footer = ({ tasks }) => {
+  const successTasks = tasks.reduce(
+    (acc, task) => (task.completed ? acc + 1 : acc),
+    0
+  );
+  const pendingTasks = tasks.reduce(
+    (acc, task) => (!task.completed ? acc + 1 : acc),
+    0
+  );
+  const hasTasks = !!tasks.length;
   return (
     <Box
       style={{
@@ -15,24 +24,18 @@ const Footer = ({ tasks }) => {
     >
       <CustomButton
         type={"success"}
-        text={`Success Tasks: ${tasks.reduce(
-          (acc, task) => (task.completed ? acc + 1 : acc),
-          0
-        )}`}
-        dis={tasks.length === 0}
+        text={`Success Tasks: ${successTasks}`}
+        dis={hasTasks}
       />
       <CustomButton
         type={"warning"}
-        text={`Pending Tasks: ${tasks.reduce(
-          (acc, task) => (!task.completed ? acc + 1 : acc),
-          0
-        )}`}
-        dis={tasks.length === 0}
+        text={`Pending Tasks: ${pendingTasks}`}
+        dis={hasTasks}
       />
       <CustomButton
         type={"primary"}
         text={`ALl Tasks: ${tasks.length}`}
-        dis={tasks.length === 0}
+        dis={hasTasks}
       />
     </Box>
   );
