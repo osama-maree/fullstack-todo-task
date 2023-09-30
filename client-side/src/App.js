@@ -1,9 +1,13 @@
-
+import { Container } from "@mui/material";
+import Home from "./pages/Home.jsx";
 function App() {
   return (
-    <div className="App">
-  
-    </div>
+    <Container
+      maxWidth="sm"
+      className="app"
+    >
+      <Home />
+    </Container>
   );
 }
 
